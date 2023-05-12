@@ -1,9 +1,5 @@
 <?php
 
-require_once '../product/DVD.php';
-require_once '../product/Book.php';
-require_once '../product/Furniture.php';
-
 abstract class AbstractProduct {
     protected $sku;
     protected $name;
@@ -12,6 +8,11 @@ abstract class AbstractProduct {
 
     public function __construct($db) {
         $this->db = $db;
+    }
+
+    public function setAttributesFromData($data)
+    {
+        $this->setSize($data->size);
     }
 
     public function getSku() {
@@ -41,40 +42,7 @@ abstract class AbstractProduct {
     // 👇 Abstract CRUD methods
     abstract public function create();
     abstract public function read();
+    abstract public function setAttributeFromRow($row);
 
-    // 👇 Helper method to read all products
-    public function readAll() {
-        $query = "SELECT * FROM products ORDER BY id";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-
-        $products = [];
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $productType = $row['product_type'];
-
-            switch ($productType) {
-                case 'DVD':
-                    $product = new DVD($this->db);
-                    break;
-                case 'Book':
-                    $product = new Book($this->db);
-                    break;
-                case 'Furniture':
-                    $product = new Furniture($this->db);
-                    break;
-                default:
-                    throw new Exception("Invalid product type: {$productType}");
-            }
-
-            $product->setSku($row['sku']);
-            $product->setName($row['name']);
-            $product->setPrice($row['price']);
-            $product->setAttributesFromRow($row);
-
-            $products[] = $product;
-        }
-
-        return $products;
-    }
+    
 }

@@ -9,6 +9,11 @@ class DVD extends AbstractProduct {
         parent::__construct($db);
     }
 
+    public function setAttributesFromData($data)
+    {
+        $this->setSize($data->size);
+    }
+
     public function getSize() {
         return $this->size;
     }

@@ -9,6 +9,11 @@ class Book extends AbstractProduct {
         parent::__construct($db);
     }
 
+    public function setAttributesFromData($data)
+    {
+        $this->setWeight($data->weight);
+    }
+
     public function getWeight() {
         return $this->weight;
     }

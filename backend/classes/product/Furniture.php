@@ -11,6 +11,11 @@ class Furniture extends AbstractProduct {
         parent::__construct($db);
     }
 
+    public function setAttributesFromData($data)
+    {
+        $this->setDimensions($data->height, $data->width, $data->length);
+    }
+
     public function getHeight() {
         return $this->height;
     }
