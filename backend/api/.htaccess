@@ -4,6 +4,6 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/api/
 RewriteRule ^ index.html [L]
 
-# Redirect API requests to the appropriate PHP script in the api folder
+# Redirect API requests to the appropriate PHP script in the api folder #
 RewriteCond %{REQUEST_URI} ^/api/
 RewriteRule ^api/([^/]+)/?$ api/$1.php [L,NC,QSA]
