@@ -1,9 +1,9 @@
 <?php
 
-require_once './abstract/AbstractProduct.php';
-require_once './product/DVD.php';
-require_once './product/Book.php';
-require_once './product/Furniture.php';
+require_once(__DIR__ . '/abstract/AbstractProduct.php');
+require_once(__DIR__ . '/product/DVD.php');
+require_once(__DIR__ . '/product/Book.php');
+require_once(__DIR__ . '/product/Furniture.php');
 
 class AllProducts {
     private $db;
