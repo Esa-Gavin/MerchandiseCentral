@@ -1,6 +1,6 @@
 <?php
 
-require_once '../abstract/AbstractProduct.php';
+require_once(__DIR__ . '/../abstract/AbstractProduct.php');
 
 class Book extends AbstractProduct {
     private $weight;

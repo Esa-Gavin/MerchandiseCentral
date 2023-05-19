@@ -11,10 +11,14 @@ require_once '../../classes/product/Furniture.php';
 $database = new Database();
 $db = $database->getConnection();
 
+if ($db === null) {
+    die('Database connection is null');
+}
+
 $product = new AllProducts($db);
 
 // 🌚 Call the readAll() method to get all products
-$products = $product->readAll();
+$products = $product->fetchAll();
 
 // 👇 Convert the resulting array of product objects to JSON
 $jsonData = json_encode($products, JSON_PRETTY_PRINT);

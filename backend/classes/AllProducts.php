@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/abstract/AbstractProduct.php');
+require_once(__DIR__ . '/ProductFactory.php');
 require_once(__DIR__ . '/product/DVD.php');
 require_once(__DIR__ . '/product/Book.php');
 require_once(__DIR__ . '/product/Furniture.php');
@@ -21,11 +22,11 @@ class AllProducts {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $productType = $row['product_type'];
-            $product = ProductFactory::create($productType, $this->db);
+            $product = ProductFactory::createProduct($productType, $this->db);
             $product->setSku($row['sku']);
             $product->setName($row['name']);
             $product->setPrice($row['price']);
-            $product->setAttributeFromRow($row);
+            $product->setAttributesFromRow($row);
 
             $products[] = $product;
         }

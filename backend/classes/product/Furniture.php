@@ -1,6 +1,6 @@
 <?php
 
-require_once '../abstract/AbstractProduct.php';
+require_once(__DIR__ . '/../abstract/AbstractProduct.php');
 
 class Furniture extends AbstractProduct {
     private $height;
