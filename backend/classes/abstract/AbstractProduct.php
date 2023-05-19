@@ -10,10 +10,7 @@ abstract class AbstractProduct {
         $this->db = $db;
     }
 
-    public function setAttributesFromData($data)
-    {
-        $this->setSize($data->size);
-    }
+    abstract public function setAttributesFromData($data);
 
     public function getSku() {
         return $this->sku;
@@ -42,7 +39,7 @@ abstract class AbstractProduct {
     // 👇 Abstract CRUD methods
     abstract public function create();
     abstract public function read();
-    abstract public function setAttributeFromRow($row);
+    abstract public function setAttributesFromRow($row);
 
     
 }
