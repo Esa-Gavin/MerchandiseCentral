@@ -14,7 +14,7 @@ class AllProducts {
     }
 
     public function fetchAll() {
-        $query = "SELECT * FROM products ORDER BY id";
+        $query = "SELECT products.*, product_attribute.attribute_name, product_attribute.attribute_value FROM products LEFT JOIN product_attribute ON products.id = product_attribute.product_id ORDER BY products.id";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
 
@@ -26,8 +26,10 @@ class AllProducts {
             $product->setSku($row['sku']);
             $product->setName($row['name']);
             $product->setPrice($row['price']);
-            $product->setAttributesFromRow($row);
-
+            if(isset($row['attribute_name']) && $row['attribute_name'] == 'size') {
+                $product->setAttributesFromRow($row);
+            }
+            
             $products[] = $product;
         }
 

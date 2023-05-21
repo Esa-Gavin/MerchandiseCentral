@@ -23,7 +23,9 @@ class DVD extends AbstractProduct {
     }
 
     public function setAttributesFromRow($row) {
-        $this->setSize($row['size']);
+        if ($row['attribute_name'] == 'size') {
+            $this->setSize($row['attribute_value']);
+        }
     }
 
     public function create() {
