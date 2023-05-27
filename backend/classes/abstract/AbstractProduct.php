@@ -10,7 +10,11 @@ abstract class AbstractProduct {
         $this->db = $db;
     }
 
-    abstract public function setAttributesFromData($data);
+    public function setAttributesFromData($data) {
+        $this->setSku($data->sku);
+        $this->setName($data->name);
+        $this->setPrice($data->price);
+    }
 
     public function getSku() {
         return $this->sku;

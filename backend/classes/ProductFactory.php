@@ -11,7 +11,9 @@ class ProductFactory
     {
         $product = null;
 
-        $productClass = ucfirst(strtolower($productType));
+        $productClass = strtoupper($productType);
+        // 👇 this is a debug line i used to display the product class
+        /* echo "Product class: " . $productClass . PHP_EOL; */
         if (class_exists($productClass)) {
             $product = new $productClass($db);
         }
