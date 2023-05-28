@@ -1,7 +1,5 @@
 <?php
 
-/* require_once __DIR__ . '/../vendor/autoload.php'; */
-
 use Dotenv\Dotenv;
 
 class Database {
@@ -12,17 +10,11 @@ class Database {
     public $conn;
 
     public function __construct() {
-        /* $dotenv = Dotenv::createImmutable(__DIR__ . '/../config');
-        $dotenv->load(); */
 
-        /* // Add this line:
-        var_dump(file_get_contents(__DIR__ . '/../config/.env'));
-        */
-
-        $this->host = $_ENV['DB_HOST'];
-        $this->db_name = $_ENV['DB_NAME'];
-        $this->username = $_ENV['DB_USER'];
-        $this->password = $_ENV['DB_PASS'];
+        $this->host = '127.0.0.1';
+        $this->db_name = 'scandiweb';
+        $this->username = 'my_user';
+        $this->password = 'Mzabibu21#';
 
         /* // debug lines
         var_dump($this->host);
