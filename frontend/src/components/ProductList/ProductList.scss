@@ -1,0 +1,74 @@
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+
+  // The horizontal line under the title
+  &::after {
+    content: "";
+    display: block;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  // Styles for the title and buttons
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+
+    h2 {
+      margin: 0;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  // Styles for the product cards
+  .product-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      width: calc(
+        25% - 20px
+      ); // four columns, assuming there's 20px gap between cards
+
+      // Styles for the checkbox
+      .checkbox {
+        align-self: flex-start;
+      }
+
+      // Styles for the product details
+      .product-details {
+        text-align: center;
+
+        p {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+
+  // The horizontal line above the footer
+  &::before {
+    content: "";
+    display: block;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    margin: 20px 0;
+  }
+}
