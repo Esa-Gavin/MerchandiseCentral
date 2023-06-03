@@ -1,7 +1,14 @@
 import React from "react";
 import "./FurnitureDimensions.scss";
 
-const FurnitureDimensions = ({ values, onChange }) => {
+const FurnitureDimensions = ({ value, onChange }) => {
+  const handleChange = (field) => (event) => {
+    onChange({
+      ...value,
+      [field]: event.target.value,
+    });
+  };
+
   return (
     <div className="furniture-dimensions">
       <div className="input-group">
@@ -11,8 +18,9 @@ const FurnitureDimensions = ({ values, onChange }) => {
           id="height"
           name="height"
           className="product-form__input"
-          value={values.height}
-          onChange={onChange}
+          value={value.height}
+          onChange={handleChange('height')}
+          min="0"
           required
         />
       </div>
@@ -23,8 +31,9 @@ const FurnitureDimensions = ({ values, onChange }) => {
           id="width"
           name="width"
           className="product-form__input"
-          value={values.width}
-          onChange={onChange}
+          value={value.width}
+          onChange={handleChange('width')}
+          min="0"
           required
         />
       </div>
@@ -35,8 +44,9 @@ const FurnitureDimensions = ({ values, onChange }) => {
           id="length"
           name="length"
           className="product-form__input"
-          value={values.length}
-          onChange={onChange}
+          value={value.length}
+          onChange={handleChange('length')}
+          min="0"
           required
         />
       </div>

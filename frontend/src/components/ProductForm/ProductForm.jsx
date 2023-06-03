@@ -35,9 +35,43 @@ const ProductForm = () => {
     setSpecialAttribute(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission here
+    
+    let productData = {
+      sku: sku,
+      name: name,
+      price: price,
+      productType: type,
+    };
+
+    if (type === "DVD") {
+      productData.size = specialAttribute.size;
+    } else if (type === "Book") {
+      productData.weight = specialAttribute.weight;
+    } else if (type === "Furniture") {
+      productData.dimensions = specialAttribute.dimensions;
+    }
+
+    try {
+      const response = await fetch("/backend/api/products/post.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.error);
+      }
+
+      alert("Product created successfully!");
+    } catch (error) {
+      alert(`Error: ${error}`);
+    }
   };
 
   return (
@@ -48,20 +82,22 @@ const ProductForm = () => {
       <TypeSwitcher onTypeChange={handleTypeChange} />
       {type === "DVD" && (
         <DVDSize
-          value={specialAttribute}
-          onChange={handleSpecialAttributeChange}
+          value={specialAttribute.size}
+          onChange={(value) => handleSpecialAttributeChange({ size: value })}
         />
       )}
       {type === "Book" && (
         <BookWeight
-          value={specialAttribute}
-          onChange={handleSpecialAttributeChange}
+          value={specialAttribute.weight}
+          onChange={(value) => handleSpecialAttributeChange({ weight: value })}
         />
       )}
       {type === "Furniture" && (
         <FurnitureDimensions
-          value={specialAttribute}
-          onChange={handleSpecialAttributeChange}
+          value={specialAttribute.dimensions}
+          onChange={(value) =>
+            handleSpecialAttributeChange({ dimensions: value })
+          }
         />
       )}
       <button type="submit" className="product-form__submit-btn">

@@ -51,14 +51,14 @@ const ProductList = () => {
         </button>
       </div>
       <div className="product-cards">
-        {products.map((product) => {
+        {products.map((product) => (
           <ProductCard
             key={product.sku}
             product={product}
             onCheck={handleCheck}
             isChecked={selectedProducts.includes(product.sku)}
-          />;
-        })}
+          />
+        ))}
       </div>
     </div>
   );
