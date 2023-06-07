@@ -1,8 +1,12 @@
 import React from "react";
-import './Footer.scss';
+import "./Footer.scss";
 
 const Footer = () => {
-    return
-}
+  return (
+    <footer className="footer">
+      <p>Scandiweb Test Assignment</p>
+    </footer>
+  );
+};
 
 export default Footer;

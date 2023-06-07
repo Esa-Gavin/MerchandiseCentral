@@ -6,11 +6,11 @@ const Header = ({ title, buttons }) => {
     <header className="header">
       <h1>{title}</h1>
       <div className="header-buttons">
-        {buttons.map((button, index) => {
-          <button key={index} onClick={button.onClick}>
+        {buttons.map((button, index) => (
+          <button key={index} onClick={button.onClick} id={button.id}>
             {button.label}
-          </button>;
-        })}
+          </button>
+        ))}
       </div>
     </header>
   );

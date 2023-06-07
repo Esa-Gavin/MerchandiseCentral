@@ -4,24 +4,16 @@
   align-items: start;
   padding: 20px;
 
-  // The horizontal line under the title
-  &::after {
-    content: "";
-    display: block;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-    margin: 20px 0;
-  }
-
   // Styles for the title and buttons
   .title-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
     margin-bottom: 20px;
 
     h2 {
       margin: 0;
+      align-self: flex-start;
     }
 
     button {
@@ -31,44 +23,19 @@
 
   // Styles for the product cards
   .product-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-gap: 80px;
 
-    .product-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 20px;
-      width: calc(
-        25% - 20px
-      ); // four columns, assuming there's 20px gap between cards
-
-      // Styles for the checkbox
-      .checkbox {
-        align-self: flex-start;
-      }
-
-      // Styles for the product details
-      .product-details {
-        text-align: center;
-
-        p {
-          margin: 5px 0;
-        }
-      }
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(1, fr);
     }
-  }
 
-  // The horizontal line above the footer
-  &::before {
-    content: "";
-    display: block;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-    margin: 20px 0;
+    @media (min-width: 601px) and (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 901px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }

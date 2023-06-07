@@ -12,10 +12,10 @@ const TypeSwitcher = ({ onTypeChange }) => {
         onChange={(e) => onTypeChange(e.target.value)}
         required
       >
-        <option value="">--Please choose an option--</option>
+        <option value="">Type Switcher</option>
         <option value="DVD">DVD</option>
-        <option value="Book">DVD</option>
-        <option value="Furniture">DVD</option>
+        <option value="Book">Book</option>
+        <option value="Furniture">Furniture</option>
       </select>
     </div>
   );

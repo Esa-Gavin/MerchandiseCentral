@@ -4,7 +4,7 @@ import "./Price.scss";
 const Price = ({ value, onChange }) => {
   return (
     <div className="input-group">
-      <label htmlFor="price">Price</label>
+      <label htmlFor="price">Price ($)</label>
       <input
         type="number"
         id="price"

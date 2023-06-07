@@ -17,11 +17,11 @@ const ProductCard = ({ product, isChecked, onCheck }) => {
         onChange={handleCheck}
       />
       <div className="product-info">
-        <p className="sku">SKU: {sku}</p>
-        <p className="name">SKU: {name}</p>
-        <p className="price">SKU: {price}</p>
+        <p className="sku">{sku}</p>
+        <p className="name">{name}</p>
+        <p className="price">{price} $</p>
               <p className="attribute">
-                  Attribute: {attribute.name} - {attribute.value}
+                  Attribute: {attribute && attribute.name} - {attribute && attribute.value}
         </p>
       </div>
     </div>
