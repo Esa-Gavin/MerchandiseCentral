@@ -1,29 +1,27 @@
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import "./App.css";
 
 // 👇 importing my components
 import Header from "./components/Header/Header";
 import ProductList from "./components/ProductList/ProductList";
-import ProductForm from "./components/ProductForm/ProductForm";
+import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from "./components/Footer/Footer";
 import { useState, useEffect } from "react";
 
 function MainContent() {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-
-  const navigate = useNavigate();
-
-  // 👇 when you call add-product, the react-router-dom library
-  // looks for a Route with a matching path in the apps routing configuration
-  // which is, <Route path="/add-product" element={<ProductForm />} />
-  const handleAdd = () => {
-    navigate("/add-product");
-  };
+  const [handleSave, setHandleSave] = useState(null);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [reload]);
 
   const fetchProducts = async () => {
     try {
@@ -51,33 +49,40 @@ function MainContent() {
   };
 
   const handleDelete = async () => {
-    const response = await fetch("/backend/api/products/delete.php", {
-      method: "POST",
-      body: JSON.stringify(selectedProducts),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://myapp.local/backend/api/products/delete.php",
+      {
+        method: "POST",
+        body: JSON.stringify(selectedProducts),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (response.ok) {
       setProducts(
         products.filter((product) => !selectedProducts.includes(product.sku))
       );
+      setSelectedProducts([]);
+      setReload((prev) => !prev); // toggle reload state to fetch updated products
     }
   };
 
   return (
     <>
-      <Header
-        title="Product List"
-        buttons={[
-          { label: "Add", onClick: handleAdd },
-          { label: "Mass Delete", onClick: handleDelete },
-        ]}
-      />
       <div id="content">
+        <Header handleDelete={handleDelete} handleSave={handleSave} />
         <Routes>
-          <Route path="/add-product" element={<ProductForm />} />
+          <Route
+            path="/add-product"
+            element={
+              <ProductPage
+                setHandleSave={setHandleSave}
+                setReload={setReload}
+              />
+            }
+          />
           <Route
             path="/"
             element={
@@ -100,7 +105,7 @@ function App() {
     <Router>
       <MainContent />
     </Router>
-  )
+  );
 }
 
 export default App;

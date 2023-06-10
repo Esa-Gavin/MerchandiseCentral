@@ -2,10 +2,24 @@ import React from "react";
 import "./ProductCard.scss";
 
 const ProductCard = ({ product, isChecked, onCheck }) => {
-  const { sku, name, price, attribute } = product;
+  const { sku, name, price, type } = product;
 
-  const handleCheck = () => {
-    onCheck(sku);
+  let attributeLabel = "";
+  let attributeValue = "";
+
+  if (type === "DVD") {
+    attributeLabel = "Size";
+    attributeValue = product.size;
+  } else if (type === "Book") {
+    attributeLabel = "Weight";
+    attributeValue = `${product.weight} KG`;
+  } else if (type === "Furniture") {
+    attributeLabel = "Dimensions";
+    attributeValue = `${product.height}*${product.width}*${product.length}`;
+  }
+
+  const handleCheck = (event) => {
+    onCheck(event, sku);
   };
 
   return (
@@ -20,8 +34,8 @@ const ProductCard = ({ product, isChecked, onCheck }) => {
         <p className="sku">{sku}</p>
         <p className="name">{name}</p>
         <p className="price">{price} $</p>
-              <p className="attribute">
-                  Attribute: {attribute && attribute.name} - {attribute && attribute.value}
+        <p className="attribute">
+          {attributeLabel} : {attributeValue}
         </p>
       </div>
     </div>

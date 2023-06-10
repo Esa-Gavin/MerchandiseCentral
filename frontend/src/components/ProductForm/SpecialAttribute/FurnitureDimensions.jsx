@@ -19,7 +19,7 @@ const FurnitureDimensions = ({ value, onChange }) => {
           name="height"
           className="product-form__input"
           value={value.height}
-          onChange={handleChange('height')}
+          onChange={handleChange("height")}
           min="0"
           required
         />
@@ -32,7 +32,7 @@ const FurnitureDimensions = ({ value, onChange }) => {
           name="width"
           className="product-form__input"
           value={value.width}
-          onChange={handleChange('width')}
+          onChange={handleChange("width")}
           min="0"
           required
         />
@@ -45,7 +45,7 @@ const FurnitureDimensions = ({ value, onChange }) => {
           name="length"
           className="product-form__input"
           value={value.length}
-          onChange={handleChange('length')}
+          onChange={handleChange("length")}
           min="0"
           required
         />
