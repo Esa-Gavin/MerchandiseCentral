@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AppContext } from "../../AppContext";
 import "./Header.scss";
 
-const Header = ({ handleDelete, handleSave }) => {
+const Header = ({ handleDelete }) => {
+  const { handleSave } = useContext(AppContext);
   const location = useLocation();
   const navigate = useNavigate();
 

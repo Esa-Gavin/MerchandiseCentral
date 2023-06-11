@@ -4,39 +4,26 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import "./App.css";
+
+// Importing the AppContext
+import { AppContext } from "./AppContext";
 
 // 👇 importing my components
 import Header from "./components/Header/Header";
 import ProductList from "./components/ProductList/ProductList";
 import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from "./components/Footer/Footer";
-import { useState, useEffect } from "react";
 
 function MainContent() {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [handleSave, setHandleSave] = useState(null);
   const [reload, setReload] = useState(false);
+  const { handleSave, setHandleSave } = useContext(AppContext);
 
-  useEffect(() => {
-    fetchProducts();
-  }, [reload]);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(
-        "http://myapp.local/backend/api/products/get.php"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.log("Fetch error: ", error);
-    }
-  };
+  // Implement your fetchProducts function here
+  // ...
 
   const handleCheck = (event, sku) => {
     if (event.target.checked) {
@@ -101,9 +88,13 @@ function MainContent() {
 }
 
 function App() {
+  const [handleSave, setHandleSave] = useState(null);
+
   return (
     <Router>
-      <MainContent />
+      <AppContext.Provider value={{ handleSave, setHandleSave }}>
+        <MainContent />
+      </AppContext.Provider>
     </Router>
   );
 }

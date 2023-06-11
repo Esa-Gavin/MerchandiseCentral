@@ -1,7 +1,7 @@
 import React from "react";
 import "./Price.scss";
 
-const Price = ({ value, onChange }) => {
+const Price = ({ register }) => {
   return (
     <div className="input-group">
       <label htmlFor="price">Price ($)</label>
@@ -10,8 +10,7 @@ const Price = ({ value, onChange }) => {
         id="price"
         name="price"
         className="product-form__input"
-        value={value}
-        onChange={onChange}
+        {...register('price')}
         min="0"
         required
       />

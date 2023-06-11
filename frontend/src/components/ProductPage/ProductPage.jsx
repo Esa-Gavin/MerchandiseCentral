@@ -1,23 +1,40 @@
-import React, { useState, useEffect } from "react";
-import "./ProductPage.scss";
+import React, { useState, useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { AppContext } from "../../AppContext";
 import ProductForm from "../ProductForm/ProductForm";
+import "./ProductPage.scss";
 
-const ProductPage = ({ setHandleSave, setReload }) => {
-  // 👈 Here's the new prop
-  const [formData, setFormData] = useState({
+const ProductPage = () => {
+  const { setHandleSave, setReload } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
+
+  const defaultFormValues = {
     name: "",
     price: "",
     sku: "",
     type: "",
-    specialAttribute: {
-      height: 0,
-      width: 0,
-      length: 0,
-    },
-  });
+    specialAttributeSize: "",
+    specialAttributeWeight: "",
+    specialAttributeHeight: "",
+    specialAttributeWidth: "",
+    specialAttributeLength: "",
+  };
 
-  const handleSubmit = async () => {
-    console.log(formData);
+  const { register, handleSubmit, formState, setValue, reset, watch } = useForm(
+    {
+      defaultValues: defaultFormValues,
+    }
+  );
+
+  useEffect(() => {
+    if (formState.isDirty) {
+      setHandleSave(() => handleSubmit(onSubmit));
+    }
+  }, [formState, handleSubmit, setHandleSave]);
+
+  const onSubmit = async (formData) => {
+    setLoading(true);
+
     let productData = {
       sku: formData.sku,
       name: formData.name,
@@ -26,11 +43,15 @@ const ProductPage = ({ setHandleSave, setReload }) => {
     };
 
     if (formData.type === "DVD") {
-      productData.size = formData.specialAttribute.size;
+      productData.size = formData.specialAttributeSize;
     } else if (formData.type === "Book") {
-      productData.weight = formData.specialAttribute.weight;
+      productData.weight = formData.specialAttributeWeight;
     } else if (formData.type === "Furniture") {
-      productData.dimensions = formData.specialAttribute;
+      productData.dimensions = {
+        height: formData.specialAttributeHeight,
+        width: formData.specialAttributeWidth,
+        length: formData.specialAttributeLength,
+      };
     }
 
     try {
@@ -45,6 +66,8 @@ const ProductPage = ({ setHandleSave, setReload }) => {
         }
       );
 
+      setLoading(false);
+
       const responseData = await response.json();
 
       if (!response.ok) {
@@ -52,41 +75,21 @@ const ProductPage = ({ setHandleSave, setReload }) => {
       }
 
       alert("Product created successfully!");
-      setFormData({
-        name: "",
-        price: "",
-        sku: "",
-        type: "",
-        specialAttribute: {
-          height: 0,
-          width: 0,
-          length: 0,
-        },
-      });
-
-      setReload((prev) => !prev); // 👈 Toggle the reload flag here
+      reset(defaultFormValues);
+      setReload((prev) => !prev);
     } catch (error) {
+      setLoading(false);
       alert(`Error: ${error}`);
     }
   };
 
-  const handleSave = () => {
-    handleSubmit();
-  };
-
-  // Make sure the handleSave is updated whenever ProductPage is rendered
-  useEffect(() => {
-    setHandleSave(() => handleSave);
-  }, []);
-
   return (
-    <>
-      <ProductForm
-        onSubmit={handleSubmit}
-        formData={formData}
-        setFormData={setFormData}
-      />
-    </>
+    <ProductForm
+      register={register}
+      watch={watch}
+      setValue={setValue}
+      loading={loading}
+    />
   );
 };
 
