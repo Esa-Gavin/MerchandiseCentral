@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.scss";
 
-const Header = ({ handleDelete, selectedProducts }) => {
+const Header = ({ handleDelete, selectedProducts, handleSave }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -11,9 +11,7 @@ const Header = ({ handleDelete, selectedProducts }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (location.pathname === "/add-product") {
-      document
-        .getElementById("product-form")
-        .dispatchEvent(new Event("submit"));
+      handleSave();
     }
   };
 

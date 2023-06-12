@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Name from "./fields/Name";
 import Price from "./fields/Price";
 import SKU from "./fields/SKU";
@@ -8,9 +8,7 @@ import BookWeight from "./SpecialAttribute/BookWeight";
 import FurnitureDimensions from "./SpecialAttribute/FurnitureDimensions";
 import "./ProductForm.scss";
 
-const ProductForm = ({ formData, setFormData, onSubmit, loading }) => {
-  const [formDirty, setFormDirty] = useState(false);
-
+const ProductForm = ({ formData, setFormData, loading }) => {
   const handleTypeChange = (selectedType) => {
     let newSpecialAttribute = {};
 
@@ -33,8 +31,6 @@ const ProductForm = ({ formData, setFormData, onSubmit, loading }) => {
       type: selectedType,
       specialAttribute: newSpecialAttribute,
     }));
-
-    setFormDirty(true);
   };
 
   const handleFieldChange = (field, value) => {
@@ -42,8 +38,6 @@ const ProductForm = ({ formData, setFormData, onSubmit, loading }) => {
       ...prevData,
       [field]: value,
     }));
-
-    setFormDirty(true);
   };
 
   const handleSpecialAttributeChange = (newValue) => {
@@ -51,26 +45,10 @@ const ProductForm = ({ formData, setFormData, onSubmit, loading }) => {
       ...prevState,
       specialAttribute: { ...prevState.specialAttribute, ...newValue },
     }));
-
-    setFormDirty(true);
   };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (formDirty) {
-      onSubmit(formData);
-      setFormDirty(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!formDirty) return;
-    const timeoutId = setTimeout(() => onSubmit(formData), 5000);
-    return () => clearTimeout(timeoutId);
-  }, [formDirty, formData, onSubmit]);
 
   return (
-    <form className="product-form" id="product-form" onSubmit={handleSubmit}>
+    <form className="product-form" id="product-form">
       <SKU
         value={formData.sku}
         onChange={(e) => handleFieldChange("sku", e.target.value)}
@@ -112,9 +90,6 @@ const ProductForm = ({ formData, setFormData, onSubmit, loading }) => {
           disabled={loading}
         />
       )}
-      <button type="submit" disabled={loading}>
-        {loading ? "Saving..." : "Save"}
-      </button>
     </form>
   );
 };
