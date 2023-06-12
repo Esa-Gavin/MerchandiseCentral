@@ -59,7 +59,7 @@ function MainContent() {
 
     try {
       const response = await fetch(
-        "http://myapp.local/backend/api/products/post.php",
+        "/backend/api/products/post.php",
         {
           method: "POST",
           headers: {
@@ -101,7 +101,7 @@ function MainContent() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://myapp.local/backend/api/products/get.php",
+          "/backend/api/products/get.php",
           { signal: abortController.signal }
         );
 
@@ -140,7 +140,7 @@ function MainContent() {
 
   const handleDelete = async () => {
     const response = await fetch(
-      "http://myapp.local/backend/api/products/delete.php",
+      "/backend/api/products/delete.php",
       {
         method: "POST",
         body: JSON.stringify(selectedProducts),
