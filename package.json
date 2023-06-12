@@ -5,7 +5,7 @@
   "scripts": {
     "install-client": "cd frontend && npm install",
     "build-client": "cd frontend && npm install vite && npm run build",
-    "install-server": "cd backend && composer install",
+    "install-server": "composer install",
     "heroku-postbuild": "npm-run-all install-client build-client install-server"
   },
   "dependencies": {
