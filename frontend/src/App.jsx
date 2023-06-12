@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
-// 👇 importing my components
+// 👇 importing my components //
 import Header from "./components/Header/Header";
 import ProductList from "./components/ProductList/ProductList";
 import ProductPage from "./components/ProductPage/ProductPage";
@@ -59,7 +59,7 @@ function MainContent() {
 
     try {
       const response = await fetch(
-        "/backend/api/products/post.php",
+        "http://myapp.local/backend/api/products/post.php",
         {
           method: "POST",
           headers: {
@@ -101,7 +101,7 @@ function MainContent() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "/backend/api/products/get.php",
+          "http://myapp.local/backend/api/products/get.php",
           { signal: abortController.signal }
         );
 
@@ -140,7 +140,7 @@ function MainContent() {
 
   const handleDelete = async () => {
     const response = await fetch(
-      "/backend/api/products/delete.php",
+      "http://myapp.local/backend/api/products/delete.php",
       {
         method: "POST",
         body: JSON.stringify(selectedProducts),
