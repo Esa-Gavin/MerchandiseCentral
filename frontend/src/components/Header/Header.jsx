@@ -1,27 +1,34 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext";
 import "./Header.scss";
 
-const Header = ({ handleDelete }) => {
-  const { handleSave } = useContext(AppContext);
+const Header = ({ handleDelete, selectedProducts }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   let title, buttons;
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (location.pathname === "/add-product") {
+      document
+        .getElementById("product-form")
+        .dispatchEvent(new Event("submit"));
+    }
+  };
+
   const handleMassDelete = () => {
-    if (typeof handleDelete === "function") {
-      handleDelete();
-    } else {
+    if (selectedProducts.length === 0) {
       alert("Please select products to delete.");
+    } else {
+      handleDelete();
     }
   };
 
   if (location.pathname === "/add-product") {
     title = "Product Add";
     buttons = [
-      { label: "Save", id: "saveBtn", onClick: handleSave },
+      { label: "Save", id: "saveBtn", onClick: handleSubmit },
       { label: "Cancel", id: "cancelBtn", onClick: () => navigate("/") },
     ];
   } else {

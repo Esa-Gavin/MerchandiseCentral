@@ -1,28 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./FurnitureDimensions.scss";
 
-const FurnitureDimensions = ({ register, setValue, watch }) => {
-  const height = watch("specialAttributeHeight");
-  const width = watch("specialAttributeWidth");
-  const length = watch("specialAttributeLength");
-
-  useEffect(() => {
-    register("specialAttributeHeight");
-    register("specialAttributeWidth");
-    register("specialAttributeLength");
-  }, [register]);
-
-  useEffect(() => {
-    if (height === undefined) {
-      setValue("specialAttributeHeight", "");
-    }
-    if (width === undefined) {
-      setValue("specialAttributeWidth", "");
-    }
-    if (length === undefined) {
-      setValue("specialAttributeLength", "");
-    }
-  }, [height, width, length, setValue]);
+const FurnitureDimensions = ({ value, onChange }) => {
+  const handleChange = (field) => (event) => {
+    onChange({
+      ...value,
+      [field]: event.target.value,
+    });
+  };
 
   return (
     <div className="furniture-dimensions">
@@ -31,10 +16,10 @@ const FurnitureDimensions = ({ register, setValue, watch }) => {
         <input
           type="number"
           id="height"
-          name="specialAttributeHeight"
+          name="height"
           className="product-form__input"
-          {...register("specialAttributeHeight")}
-          onChange={(e) => setValue("specialAttributeHeight", e.target.value)}
+          value={value.height}
+          onChange={handleChange("height")}
           min="0"
           required
         />
@@ -44,23 +29,23 @@ const FurnitureDimensions = ({ register, setValue, watch }) => {
         <input
           type="number"
           id="width"
-          name="specialAttributeWidth"
+          name="width"
           className="product-form__input"
-          {...register("specialAttributeWidth")}
-          onChange={(e) => setValue("specialAttributeWidth", e.target.value)}
+          value={value.width}
+          onChange={handleChange("width")}
           min="0"
           required
         />
       </div>
       <div className="input-group">
-        <label htmlFor="length">Length (CM)</label>
+        <label htmlFor="length">Width (CM)</label>
         <input
           type="number"
           id="length"
-          name="specialAttributeLength"
+          name="length"
           className="product-form__input"
-          {...register("specialAttributeLength")}
-          onChange={(e) => setValue("specialAttributeLength", e.target.value)}
+          value={value.length}
+          onChange={handleChange("length")}
           min="0"
           required
         />

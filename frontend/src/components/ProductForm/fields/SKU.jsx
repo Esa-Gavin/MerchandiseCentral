@@ -1,7 +1,7 @@
 import React from "react";
 import "./SKU.scss";
 
-const SKU = ({ register }) => {
+const SKU = ({ value, onChange }) => {
     return (
         <div className="input-group">
             <label htmlFor="sku">SKU</label>
@@ -10,7 +10,8 @@ const SKU = ({ register }) => {
                 id="sku"
                 name="sku"
                 className="product-form__input"
-                {...register('sku')}
+                value={value}
+                onChange={onChange}
                 required
             />
       </div>

@@ -1,29 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./DVDSize.scss";
 
-const DVDSize = ({ register, setValue, watch }) => {
-  const size = watch("specialAttributeSize");
-
-  useEffect(() => {
-    register("specialAttributeSize");
-  }, [register]);
-
-  useEffect(() => {
-    if (size === undefined) {
-      setValue("specialAttributeSize", "");
-    }
-  }, [size, setValue]);
-
+const DVDSize = ({ value, onChange }) => {
+  const handleChange = (event) => {
+    onChange(event.target.value);
+  }
   return (
     <div className="input-group">
       <label htmlFor="size">Size (MB)</label>
       <input
         type="number"
         id="size"
-        name="specialAttributeSize"
+        name="size"
         className="product-form__input"
-        {...register("specialAttributeSize")}
-        onChange={(e) => setValue("specialAttributeSize", e.target.value)}
+        value={value}
+        onChange={handleChange}
+        min="0"
         required
       />
     </div>

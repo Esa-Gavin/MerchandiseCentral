@@ -1,38 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useForm } from "react-hook-form";
-import { AppContext } from "../../AppContext";
-import ProductForm from "../ProductForm/ProductForm";
+import React, { useState, useEffect } from "react";
 import "./ProductPage.scss";
-
-const ProductPage = () => {
-  const { setHandleSave, setReload } = useContext(AppContext);
-  const [loading, setLoading] = useState(false);
-
-  const defaultFormValues = {
+import ProductForm from "../ProductForm/ProductForm";
+import { useNavigate } from "react-router-dom";
+useNavigate
+const ProductPage = ({ setHandleSave, setReload, setRefreshProducts }) => {
+  const [formData, setFormData] = useState({
     name: "",
     price: "",
     sku: "",
     type: "",
-    specialAttributeSize: "",
-    specialAttributeWeight: "",
-    specialAttributeHeight: "",
-    specialAttributeWidth: "",
-    specialAttributeLength: "",
-  };
+    specialAttribute: {},
+  });
 
-  const { register, handleSubmit, formState, setValue, reset, watch } = useForm(
-    {
-      defaultValues: defaultFormValues,
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [saveTriggered, setSaveTriggered] = useState(false);
 
-  useEffect(() => {
-    if (formState.isDirty) {
-      setHandleSave(() => handleSubmit(onSubmit));
-    }
-  }, [formState, handleSubmit, setHandleSave]);
+  const navigate = useNavigate();
 
-  const onSubmit = async (formData) => {
+  const handleSubmit = async () => {
+    if (isUpdating) return;
     setLoading(true);
 
     let productData = {
@@ -43,15 +30,11 @@ const ProductPage = () => {
     };
 
     if (formData.type === "DVD") {
-      productData.size = formData.specialAttributeSize;
+      productData.size = formData.specialAttribute.size;
     } else if (formData.type === "Book") {
-      productData.weight = formData.specialAttributeWeight;
+      productData.weight = formData.specialAttribute.weight;
     } else if (formData.type === "Furniture") {
-      productData.dimensions = {
-        height: formData.specialAttributeHeight,
-        width: formData.specialAttributeWidth,
-        length: formData.specialAttributeLength,
-      };
+      productData.dimensions = formData.specialAttribute;
     }
 
     try {
@@ -75,19 +58,49 @@ const ProductPage = () => {
       }
 
       alert("Product created successfully!");
-      reset(defaultFormValues);
-      setReload((prev) => !prev);
+      setFormData({
+        name: "",
+        price: "",
+        sku: "",
+        type: "",
+        specialAttribute: {},
+      });
+
+      setRefreshProducts((prev) => prev + 1);
+
+      navigate("/"); // Navigate back to the product list
+
     } catch (error) {
       setLoading(false);
       alert(`Error: ${error}`);
     }
   };
 
+  useEffect(() => {
+    if (!isUpdating && saveTriggered) {
+      handleSubmit();
+      setSaveTriggered(false);
+    }
+  }, [isUpdating]);
+
+  const handleSave = () => {
+    if (!isUpdating) {
+      handleSubmit();
+    } else {
+      setSaveTriggered(true);
+    }
+  };
+
+  useEffect(() => {
+    setHandleSave(() => handleSave);
+  }, []);
+
   return (
     <ProductForm
-      register={register}
-      watch={watch}
-      setValue={setValue}
+      onSubmit={handleSubmit}
+      formData={formData}
+      setFormData={setFormData}
+      setIsUpdating={setIsUpdating}
       loading={loading}
     />
   );

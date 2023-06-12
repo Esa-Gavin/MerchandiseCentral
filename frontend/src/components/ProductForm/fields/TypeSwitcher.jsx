@@ -1,7 +1,7 @@
 import React from "react";
 import "./TypeSwitcher.scss";
 
-const TypeSwitcher = ({ register }) => {
+const TypeSwitcher = ({ onTypeChange }) => {
   return (
     <div className="input-group">
       <label htmlFor="type">Type Switcher</label>
@@ -9,7 +9,7 @@ const TypeSwitcher = ({ register }) => {
         id="type"
         name="type"
         className="product-form__select"
-        {...register("type")}
+        onChange={(e) => onTypeChange(e.target.value)}
         required
       >
         <option value="">Type Switcher</option>

@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./BookWeight.scss";
 
-const BookWeight = ({ register, setValue, watch }) => {
-  const weight = watch("specialAttributeWeight");
-
-  useEffect(() => {
-    register("specialAttributeWeight");
-  }, [register]);
-
-  useEffect(() => {
-    if (weight === undefined) {
-      setValue("specialAttributeWeight", "");
-    }
-  }, [weight, setValue]);
+const BookWeight = ({ value, onChange }) => {
+  const handleChange = (event) => {
+    onChange(event.target.value);
+  };
 
   return (
     <div className="input-group">
@@ -20,10 +12,10 @@ const BookWeight = ({ register, setValue, watch }) => {
       <input
         type="number"
         id="weight"
-        name="specialAttributeWeight"
+        name="weight"
         className="product-form__input"
-        {...register("specialAttributeWeight")}
-        onChange={(e) => setValue("specialAttributeWeight", e.target.value)}
+        value={value}
+        onChange={handleChange}
         required
       />
     </div>

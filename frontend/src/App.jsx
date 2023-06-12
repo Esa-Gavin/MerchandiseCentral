@@ -4,26 +4,62 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
 import "./App.css";
-
-// Importing the AppContext
-import { AppContext } from "./AppContext";
 
 // 👇 importing my components
 import Header from "./components/Header/Header";
 import ProductList from "./components/ProductList/ProductList";
 import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from "./components/Footer/Footer";
+import { useState, useEffect } from "react";
 
 function MainContent() {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [reload, setReload] = useState(false);
-  const { handleSave, setHandleSave } = useContext(AppContext);
+  const [handleSave, setHandleSave] = useState(null);
+  const [refreshProducts, setRefreshProducts] = useState(0);
 
-  // Implement your fetchProducts function here
-  // ...
+  const navigate = useNavigate();
+
+  // 👇 when you call add-product, the react-router-dom library
+  // looks for a Route with a matching path in the apps routing configuration
+  // which is, <Route path="/add-product" element={<ProductForm />} />
+  const handleAdd = () => {
+    navigate("/add-product");
+  };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          "http://myapp.local/backend/api/products/get.php",
+          { signal: abortController.signal }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
+          console.log("Fetch error: ", error);
+        }
+      }
+    };
+
+    fetchProducts();
+
+    // cleanup function
+    return () => {
+      abortController.abort();
+    };
+  }, [refreshProducts]);
 
   const handleCheck = (event, sku) => {
     if (event.target.checked) {
@@ -51,22 +87,24 @@ function MainContent() {
       setProducts(
         products.filter((product) => !selectedProducts.includes(product.sku))
       );
-      setSelectedProducts([]);
-      setReload((prev) => !prev); // toggle reload state to fetch updated products
     }
   };
 
   return (
     <>
       <div id="content">
-        <Header handleDelete={handleDelete} handleSave={handleSave} />
+        <Header
+          handleDelete={handleDelete}
+          handleSave={handleSave}
+          selectedProducts={selectedProducts}
+        />
         <Routes>
           <Route
             path="/add-product"
             element={
               <ProductPage
                 setHandleSave={setHandleSave}
-                setReload={setReload}
+                setRefreshProducts={setRefreshProducts}
               />
             }
           />
@@ -88,13 +126,9 @@ function MainContent() {
 }
 
 function App() {
-  const [handleSave, setHandleSave] = useState(null);
-
   return (
     <Router>
-      <AppContext.Provider value={{ handleSave, setHandleSave }}>
-        <MainContent />
-      </AppContext.Provider>
+      <MainContent />
     </Router>
   );
 }
