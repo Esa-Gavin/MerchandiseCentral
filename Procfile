@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-apache2 /frontend/dist/
+web: vendor/bin/heroku-php-apache2 backend/public/

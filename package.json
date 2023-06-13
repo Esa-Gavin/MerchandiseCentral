@@ -6,7 +6,7 @@
     "install-client": "cd frontend && npm install",
     "build-client": "cd frontend && npm install vite && npm run build",
     "install-server": "composer install",
-    "heroku-postbuild": "npm-run-all install-client build-client install-server"
+    "heroku-postbuild": "npm-run-all install-client build-client install-server && cp -R frontend/dist/ backend/public/"
   },
   "dependencies": {
     "concurrently": "^6.5.1",
