@@ -1,3 +1,3 @@
-server: heroku-php-apache2 /
+server: heroku-php-apache2
 web: frontend/dist
 
