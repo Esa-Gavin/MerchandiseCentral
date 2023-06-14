@@ -71,7 +71,8 @@ function MainContent() {
     } else if (formData.type === "Book") {
       productData.weight = formData.specialAttribute.weight;
     } else if (formData.type === "Furniture") {
-      productData.dimensions = formData.specialAttribute;
+      const { height, width, length } = formData.specialAttribute;
+      productData.dimensions = `${height}x${width}x${length}`;
     }
 
     try {
