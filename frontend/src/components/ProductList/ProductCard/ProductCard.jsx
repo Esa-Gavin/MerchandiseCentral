@@ -26,7 +26,7 @@ const ProductCard = ({ product, isChecked, onCheck }) => {
     <div className="product-card">
       <input
         type="checkbox"
-        className="product-checkbox"
+        className="delete-checkbox"
         checked={isChecked}
         onChange={handleCheck}
       />

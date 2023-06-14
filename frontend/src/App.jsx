@@ -59,7 +59,7 @@ function MainContent() {
 
     try {
       const response = await fetch(
-        "/backend/api/products/post.php",
+        "https://merchbackend.herokuapp.com/api/products/post.php",
         {
           method: "POST",
           headers: {
@@ -101,7 +101,7 @@ function MainContent() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "/backend/api/products/get.php",
+          "https://merchbackend.herokuapp.com/api/products/get.php",
           { signal: abortController.signal }
         );
 
@@ -140,7 +140,7 @@ function MainContent() {
 
   const handleDelete = async () => {
     const response = await fetch(
-      "/backend/api/products/delete.php",
+      "https://merchbackend.herokuapp.com/api/products/delete.php",
       {
         method: "POST",
         body: JSON.stringify(selectedProducts),

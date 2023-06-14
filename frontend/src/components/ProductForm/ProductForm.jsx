@@ -48,7 +48,7 @@ const ProductForm = ({ formData, setFormData, loading }) => {
   };
 
   return (
-    <form className="product-form" id="product-form">
+    <form className="product-form" id="product_form">
       <SKU
         value={formData.sku}
         onChange={(e) => handleFieldChange("sku", e.target.value)}

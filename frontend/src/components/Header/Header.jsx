@@ -26,15 +26,15 @@ const Header = ({ handleDelete, selectedProducts, handleSave }) => {
   if (location.pathname === "/add-product") {
     title = "Product Add";
     buttons = [
-      { label: "Save", id: "saveBtn", onClick: handleSubmit },
-      { label: "Cancel", id: "cancelBtn", onClick: () => navigate("/") },
+      { label: "SAVE", id: "saveBtn", onClick: handleSubmit },
+      { label: "CANCEL", id: "cancelBtn", onClick: () => navigate("/") },
     ];
   } else {
     title = "Product List";
     buttons = [
       { label: "Add", id: "addBtn", onClick: () => navigate("/add-product") },
       {
-        label: "Mass Delete",
+        label: "MASS DELETE",
         id: "massDeleteBtn",
         onClick: handleMassDelete,
       },

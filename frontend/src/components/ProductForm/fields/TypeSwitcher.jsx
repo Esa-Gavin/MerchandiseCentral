@@ -6,7 +6,7 @@ const TypeSwitcher = ({ onTypeChange }) => {
     <div className="input-group">
       <label htmlFor="type">Type Switcher</label>
       <select
-        id="type"
+        id="productType"
         name="type"
         className="product-form__select"
         onChange={(e) => onTypeChange(e.target.value)}
