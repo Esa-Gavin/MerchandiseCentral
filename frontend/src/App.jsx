@@ -77,7 +77,6 @@ function MainContent() {
         throw new Error(responseData.error);
       }
 
-      alert("Product created successfully!");
       setFormData({
         name: "",
         price: "",
