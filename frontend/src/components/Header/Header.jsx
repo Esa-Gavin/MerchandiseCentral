@@ -25,7 +25,7 @@ const Header = ({ handleDelete, selectedProducts, handleSave }) => {
   if (location.pathname === "/add-product") {
     title = "Product Add";
     buttons = [
-      { label: "SAVE", onClick: handleSubmit },
+      { label: "Save", onClick: handleSubmit },
       { label: "CANCEL", onClick: () => navigate("/") },
     ];
   } else {
