@@ -17,7 +17,6 @@ const Header = ({ handleDelete, selectedProducts, handleSave }) => {
 
   const handleMassDelete = () => {
     if (selectedProducts.length === 0) {
-      alert("Please select products to delete.");
     } else {
       handleDelete();
     }
