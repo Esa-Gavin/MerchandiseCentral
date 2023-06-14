@@ -26,7 +26,7 @@ const Header = ({ handleDelete, selectedProducts, handleSave }) => {
     title = "Product Add";
     buttons = [
       { label: "Save", id: "saveBtn", onClick: handleSubmit },
-      { label: "CANCEL", id: "cancelBtn", onClick: () => navigate("/") },
+      { label: "Cancel", id: "cancelBtn", onClick: () => navigate("/") },
     ];
   } else {
     title = "Product List";
