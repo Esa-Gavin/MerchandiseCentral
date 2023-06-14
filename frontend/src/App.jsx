@@ -42,6 +42,23 @@ function MainContent() {
     if (isUpdating) return;
     setLoading(true);
 
+    // Validation
+    if (!formData.sku || !formData.name || !formData.price || !formData.type) {
+      alert("All fields are required");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      formData.type === "Furniture" &&
+      (!formData.specialAttribute ||
+        Object.keys(formData.specialAttribute).length === 0)
+    ) {
+      alert("Please provide dimensions for the furniture");
+      setLoading(false);
+      return;
+    }
+
     let productData = {
       sku: formData.sku,
       name: formData.name,
