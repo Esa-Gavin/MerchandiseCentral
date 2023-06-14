@@ -32,7 +32,7 @@ const Header = ({ handleDelete, selectedProducts, handleSave }) => {
   } else {
     title = "Product List";
     buttons = [
-      { label: "Add", id: "addBtn", onClick: () => navigate("/add-product") },
+      { label: "ADD", id: "addBtn", onClick: () => navigate("/add-product") },
       {
         label: "MASS DELETE",
         id: "massDeleteBtn",

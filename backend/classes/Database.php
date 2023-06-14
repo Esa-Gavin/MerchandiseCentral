@@ -9,19 +9,14 @@ class Database {
     private $password;
     public $conn;
 
-    public function __construct() {
+public function __construct() {
+    $url = parse_url("mysql://b2c687f6959cc4:bc0d6b54@us-cdbr-east-06.cleardb.net/heroku_a89432921adc9f0?reconnect=true");
 
-        $this->host = '127.0.0.1';
-        $this->db_name = 'scandiweb';
-        $this->username = 'my_user';
-        $this->password = 'Mzabibu21#';
-
-        /* // debug lines
-        var_dump($this->host);
-        var_dump($this->db_name);
-        var_dump($this->username);
-        var_dump($this->password); */
-    }
+    $this->host = $url["host"];
+    $this->db_name = substr($url["path"], 1);
+    $this->username = $url["user"];
+    $this->password = $url["pass"];
+}
 
     public function getConnection() {
         $this->conn = null;
