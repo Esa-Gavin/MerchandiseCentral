@@ -95,7 +95,7 @@ const ProductForm = ({ formData = {}, setFormData, loading }) => {
           disabled={loading}
         />
       )}
-      <p>{`* ${attributeDescription}`}</p>
+      {attributeDescription && <p>{`* ${attributeDescription}`}</p>}
     </form>
   );
 };
