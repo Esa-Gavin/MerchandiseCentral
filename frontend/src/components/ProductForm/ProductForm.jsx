@@ -14,13 +14,13 @@ const ProductForm = ({ formData, setFormData, loading }) => {
 
     switch (selectedType) {
       case "DVD":
-        newSpecialAttribute = { size: 0 };
+        newSpecialAttribute = { size: "" };
         break;
       case "Book":
-        newSpecialAttribute = { weight: 0 };
+        newSpecialAttribute = { weight: "" };
         break;
       case "Furniture":
-        newSpecialAttribute = { height: 0, width: 0, length: 0 };
+        newSpecialAttribute = { height: "", width: "", length: "" };
         break;
       default:
         newSpecialAttribute = {};
