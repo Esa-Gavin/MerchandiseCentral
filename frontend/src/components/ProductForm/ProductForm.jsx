@@ -8,7 +8,7 @@ import BookWeight from "./SpecialAttribute/BookWeight";
 import FurnitureDimensions from "./SpecialAttribute/FurnitureDimensions";
 import "./ProductForm.scss";
 
-const ProductForm = ({ formData, setFormData, loading }) => {
+const ProductForm = ({ formData = {}, setFormData, loading }) => {
   const [attributeDescription, setAttributeDescription] = useState("");
 
   const handleTypeChange = (selectedType) => {
