@@ -44,7 +44,7 @@ function MainContent() {
 
     // Validation
     if (!formData.sku || !formData.name || !formData.price || !formData.type) {
-      alert("All fields are required");
+      alert("Please, submit required data");
       setLoading(false);
       return;
     }
@@ -69,15 +69,22 @@ function MainContent() {
       return;
     }
 
-    if (
-      formData.type === "Furniture" &&
-      (!formData.specialAttribute ||
-        Object.keys(formData.specialAttribute).length === 0)
-    ) {
-      alert("Please provide dimensions for the furniture");
-      setLoading(false);
-      return;
+    if (formData.type === "Furniture") {
+      const { height, width, length } = formData.specialAttribute;
+      if (
+        !height ||
+        isNaN(Number(height)) ||
+        !width ||
+        isNaN(Number(width)) ||
+        !length ||
+        isNaN(Number(length))
+      ) {
+        alert("Please provide valid dimensions for the furniture");
+        setLoading(false);
+        return;
+      }
     }
+
 
     let productData = {
       sku: formData.sku,

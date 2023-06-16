@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Name from "./fields/Name";
 import Price from "./fields/Price";
 import SKU from "./fields/SKU";
@@ -9,21 +9,26 @@ import FurnitureDimensions from "./SpecialAttribute/FurnitureDimensions";
 import "./ProductForm.scss";
 
 const ProductForm = ({ formData, setFormData, loading }) => {
+  const [attributeDescription, setAttributeDescription] = useState("");
+
   const handleTypeChange = (selectedType) => {
     let newSpecialAttribute = {};
-
     switch (selectedType) {
       case "DVD":
         newSpecialAttribute = { size: "" };
+        setAttributeDescription("Please, provide size");
         break;
       case "Book":
         newSpecialAttribute = { weight: "" };
+        setAttributeDescription("Please, provide weight");
         break;
       case "Furniture":
         newSpecialAttribute = { height: "", width: "", length: "" };
+        setAttributeDescription("Please, provide dimensions");
         break;
       default:
         newSpecialAttribute = {};
+        setAttributeDescription(""); // Clear description
     }
 
     setFormData((prevData) => ({
@@ -69,6 +74,7 @@ const ProductForm = ({ formData, setFormData, loading }) => {
         onTypeChange={handleTypeChange}
         disabled={loading}
       />
+      <p>{attributeDescription}</p>
       {formData.type === "DVD" && (
         <DVDSize
           value={formData.specialAttribute.size}
