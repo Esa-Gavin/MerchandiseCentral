@@ -74,7 +74,6 @@ const ProductForm = ({ formData, setFormData, loading }) => {
         onTypeChange={handleTypeChange}
         disabled={loading}
       />
-      <p>{attributeDescription}</p>
       {formData.type === "DVD" && (
         <DVDSize
           value={formData.specialAttribute.size}
@@ -96,6 +95,7 @@ const ProductForm = ({ formData, setFormData, loading }) => {
           disabled={loading}
         />
       )}
+      <p>{attributeDescription}</p>
     </form>
   );
 };
