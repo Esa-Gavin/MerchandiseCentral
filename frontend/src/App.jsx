@@ -50,6 +50,26 @@ function MainContent() {
     }
 
     if (
+      formData.type === "DVD" &&
+      (!formData.specialAttribute.size ||
+        isNaN(Number(formData.specialAttribute.size)))
+    ) {
+      alert("Please provide a valid size for the DVD");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      formData.type === "Book" &&
+      (!formData.specialAttribute.weight ||
+        isNaN(Number(formData.specialAttribute.weight)))
+    ) {
+      alert("Please provide a valid weight for the Book");
+      setLoading(false);
+      return;
+    }
+
+    if (
       formData.type === "Furniture" &&
       (!formData.specialAttribute ||
         Object.keys(formData.specialAttribute).length === 0)
