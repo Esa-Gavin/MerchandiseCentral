@@ -13,9 +13,11 @@ class Furniture extends AbstractProduct implements JsonSerializable {
 
     public function setAttributesFromData($data)
     {
-        parent::setAttributesFromData($data);
-        $this->setDimensions($data->height, $data->width, $data->length);
+    parent::setAttributesFromData($data);
+    $dimensions = explode("x", $data->dimensions);
+    $this->setDimensions($dimensions[0], $dimensions[1], $dimensions[2]);
     }
+
 
     public function getHeight() {
         return $this->height;

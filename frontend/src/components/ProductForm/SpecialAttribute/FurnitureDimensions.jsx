@@ -38,7 +38,7 @@ const FurnitureDimensions = ({ value, onChange }) => {
         />
       </div>
       <div className="input-group">
-        <label htmlFor="length">Width (CM)</label>
+        <label htmlFor="length">Length (CM)</label>
         <input
           type="number"
           id="length"
