@@ -9,7 +9,7 @@ const ProductCard = ({ product, isChecked, onCheck }) => {
 
   if (type === "DVD") {
     attributeLabel = "Size";
-    attributeValue = product.size;
+    attributeValue = `${product.size} MB`;
   } else if (type === "Book") {
     attributeLabel = "Weight";
     attributeValue = `${product.weight} KG`;
