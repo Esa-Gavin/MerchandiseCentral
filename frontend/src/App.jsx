@@ -42,7 +42,7 @@ function MainContent() {
     if (isUpdating) return;
     setLoading(true);
 
-    // Validation
+    // Validating
     if (!formData.sku || !formData.name || !formData.price || !formData.type) {
       alert("Please, submit required data");
       setLoading(false);
