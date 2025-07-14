@@ -9,19 +9,20 @@ class ProductFactory
 {
     public static function createProduct($productType, $db)
     {
-        $product = null;
+        $classMap = [
+            'dvd' => 'DVD',
+            'book' => 'Book',
+            'furniture' => 'Furniture'
+        ];
 
-        $productClass = strtoupper($productType);
-        // 👇 this is a debug line i used to display the product class
-        /* echo "Product class: " . $productClass . PHP_EOL; */
-        if (class_exists($productClass)) {
-            $product = new $productClass($db);
-        }
+        $key = strtolower($productType);
 
-        if ($product === null) {
+        if (!isset($classMap[$key]) || !class_exists($classMap[$key])) {
             throw new Exception("Invalid product type: {$productType}");
         }
 
-        return $product;
+        $productClass = $classMap[$key];
+
+        return new $productClass($db);
     }
 }
